@@ -35,7 +35,6 @@ class LoginController: UIViewController {
         return view
     }()
     
-    
     private let emailTextField : UITextField = {
         //from Extensions, textfield function
         return UITextField().textField(withPalaceholder: "Email", isSecureEntry: false)
@@ -46,6 +45,7 @@ class LoginController: UIViewController {
         //from Extensions, textfield function
         return UITextField().textField(withPalaceholder: "Password", isSecureEntry: true)
     }()
+    
     
     //MARK:- Buttons
     private let loginWhenPressed: UIButton = {
@@ -67,46 +67,76 @@ class LoginController: UIViewController {
                                                                      NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         attributedTitle.append(NSAttributedString(string: "Sign Up!", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16),
                                                                                    NSAttributedString.Key.foregroundColor : UIColor.mainBlueTint]))
-        //button.addTarget(self(), action: #selector(handleShowSignUp), for: .normal)
+        
+        
+        //Action for signup
+        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
+        
         button.setAttributedTitle(attributedTitle, for: .normal)
         
         return button
     }()
     
-    
+       
     
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        view.backgroundColor = UIColor.backgroundColor //From the Extensions
-        
-        view.addSubview(titleLabel)
-        //.Anchor() comes fromExtensions
-        titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor)
-        titleLabel.centerX(inView: view)
-        
-     
-        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView,loginWhenPressed])
-        stack.axis = .vertical
-        stack.distribution = .fillEqually
-        stack.spacing = 24
-        
-        view.addSubview(stack)
-        stack.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16)
-        
-        view.addSubview(signUpWhenPressed)
-        signUpWhenPressed.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 16, paddingRight: 16, height: 32)
-        signUpWhenPressed.centerX(inView: view)
-        
+        configureUI()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle { //Clear the icons on top
-        return .lightContent
+//    This function was replaced by configureNavBar, since the hosting controller now is NavigatoonController
+//    override var preferredStatusBarStyle: UIStatusBarStyle { //Clear the icons on top
+//        return .lightContent
+//    }
+    
+    
+    
+    //MARK:- Selector Functions
+    @objc func handleShowSignUp() {
+        
+        print("moving to signupcontroller")
+        //
+        let controller = SignUpController()
+        navigationController?.pushViewController(controller, animated: true)
+        
     }
     
     
+    //MARK:- Helper functions
     
+    func configureUI(){
+        
+        configureNavigationBar()
+        
+          view.backgroundColor = UIColor.backgroundColor //From the Extensions
+           
+           view.addSubview(titleLabel)
+           //.Anchor() comes fromExtensions
+           titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor)
+           titleLabel.centerX(inView: view)
+           
+        
+           let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView,loginWhenPressed])
+           stack.axis = .vertical
+           stack.distribution = .fillEqually
+           stack.spacing = 24
+           
+           view.addSubview(stack)
+           stack.anchor(top: titleLabel.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16)
+           
+           view.addSubview(signUpWhenPressed)
+           signUpWhenPressed.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, paddingLeft: 16, paddingRight: 16, height: 32)
+           signUpWhenPressed.centerX(inView: view)
+    }
+    
+    
+    //To change the white color of the nav bar
+    func configureNavigationBar(){
+        
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.barStyle = .black
+    }
     
     
 }

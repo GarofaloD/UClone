@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C2C8C7A2414738400D7E026 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C2C8C792414738400D7E026 /* SignUpController.swift */; };
 		8C55D113240B0DE3002B9A39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C55D112240B0DE3002B9A39 /* AppDelegate.swift */; };
 		8C55D115240B0DE3002B9A39 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C55D114240B0DE3002B9A39 /* SceneDelegate.swift */; };
 		8C55D11A240B0DE3002B9A39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C55D118240B0DE3002B9A39 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C2C8C792414738400D7E026 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		8C55D10F240B0DE3002B9A39 /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C55D112240B0DE3002B9A39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8C55D114240B0DE3002B9A39 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				8C9EE90D240B125B0083612D /* LoginController.swift */,
+				8C2C8C792414738400D7E026 /* SignUpController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -181,6 +184,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C2C8C7A2414738400D7E026 /* SignUpController.swift in Sources */,
 				8C55D113240B0DE3002B9A39 /* AppDelegate.swift in Sources */,
 				8C9EE90E240B125B0083612D /* LoginController.swift in Sources */,
 				8C55D115240B0DE3002B9A39 /* SceneDelegate.swift in Sources */,
