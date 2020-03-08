@@ -95,8 +95,6 @@ class LoginController: UIViewController {
     //MARK:- Selector Functions
     @objc func handleShowSignUp() {
         
-        print("moving to signupcontroller")
-        //
         let controller = SignUpController()
         navigationController?.pushViewController(controller, animated: true)
         
