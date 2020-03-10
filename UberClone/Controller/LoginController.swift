@@ -48,14 +48,10 @@ class LoginController: UIViewController {
     
     
     //MARK:- Buttons
-    private let loginWhenPressed: UIButton = {
-        let button = UIButton(type: .system)
+    private let loginWhenPressed: AuthButton = {
+        let button = AuthButton(type: .system)
         button.setTitle("Log In", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.setTitleColor(UIColor(white: 1, alpha: 0.5), for: .normal)
-        button.backgroundColor = UIColor.mainBlueTint //From the Extensions
-        button.layer.cornerRadius = 5
-        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return button
     }()
     
