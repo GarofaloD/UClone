@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignUpController: UIViewController{
     
@@ -47,15 +48,15 @@ class SignUpController: UIViewController{
     
     
     private let emailTextField : UITextField = {
-        return UITextField().textField(withPalaceholder: "Email", isSecureEntry: false)
+        return UITextField().textField(withPlaceholder: "Email", isSecureEntry: false)
     }()
     
     private let fullNameTextField : UITextField = {
-        return UITextField().textField(withPalaceholder: "Full Name", isSecureEntry: false)
+        return UITextField().textField(withPlaceholder: "Full Name", isSecureEntry: false)
     }()
     
     private let passwordTextField : UITextField = {
-        return UITextField().textField(withPalaceholder: "Password", isSecureEntry: true)
+        return UITextField().textField(withPlaceholder: "Password", isSecureEntry: true)
     }()
     
     private let accountTypeSegmentedControl : UISegmentedControl = {
@@ -73,6 +74,10 @@ class SignUpController: UIViewController{
         let button = AuthButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        
+        //Firestore sign up function reference: handleSignUp
+        button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
+        
         return button
     }()
     
@@ -107,6 +112,41 @@ class SignUpController: UIViewController{
         //Goes back to the previous vc by popping it out 
         navigationController?.popViewController(animated: true)
     }
+    
+    //Firestore signup helper function
+    @objc func handleSignUp(){
+        //Valus from signup form
+        guard let email = emailTextField.text else {return}
+        guard let fullName = fullNameTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        let accountTypeIndex = accountTypeSegmentedControl.selectedSegmentIndex
+        
+        //Auth method from Firestore
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            //Error management if returned
+            if let errorFromApi = error {
+                print("Failed to register user with error: \(errorFromApi)")
+                return //We want to exit oout of the function if we encounter an error
+            }
+            
+            //Result Management if returned
+            guard let uid = result?.user.uid else {return}
+            let values = ["email": email, "fullname": fullName, "accountType": accountTypeIndex] as [String : Any]
+            
+            //Data upload to firebase
+            //Reads: Library.method.reference.table.index.valuesassociatedWithThatIndex.callback
+            Database.database().reference().child("users").child(uid).updateChildValues(values) { (error, ref) in
+                //Error Management if returned
+                if let errorFromApi = error {
+                    print("Failed to register user. Error message: \(errorFromApi)")
+                    return //We want to exit oout of the function if we encounter an error
+                }
+             
+                print("Registration Successful and data saved")
+                
+            }
+        }
+}
     
     //MARK:- Helper Functions
     func configureUI(){

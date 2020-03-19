@@ -96,7 +96,7 @@ extension UIView { //This one is used for all the UIViews
 
 extension UITextField {
     
-    func textField(withPalaceholder placeholder: String, isSecureEntry: Bool) -> UITextField{
+    func textField(withPlaceholder placeholder: String, isSecureEntry: Bool) -> UITextField{
         //Creation of the textfield
          let textField = UITextField()
         
@@ -105,7 +105,7 @@ extension UITextField {
          textField.font = UIFont.systemFont(ofSize: 16)
          textField.textColor = .white
          textField.keyboardAppearance = .dark //Keeps appearance of kdark mode for keyboard
-         textField.isSecureTextEntry = isSecureTextEntry
+         textField.isSecureTextEntry = isSecureEntry
          textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
         
         return textField

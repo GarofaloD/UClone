@@ -37,13 +37,13 @@ class LoginController: UIViewController {
     
     private let emailTextField : UITextField = {
         //from Extensions, textfield function
-        return UITextField().textField(withPalaceholder: "Email", isSecureEntry: false)
+        return UITextField().textField(withPlaceholder: "Email", isSecureEntry: false)
 
     }()
     
     private let passwordTextField : UITextField = {
         //from Extensions, textfield function
-        return UITextField().textField(withPalaceholder: "Password", isSecureEntry: true)
+        return UITextField().textField(withPlaceholder: "Password", isSecureEntry: true)
     }()
     
     
