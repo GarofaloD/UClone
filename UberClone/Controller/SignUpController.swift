@@ -125,7 +125,7 @@ class SignUpController: UIViewController{
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             //Error management if returned
             if let errorFromApi = error {
-                print("Failed to register user with error: \(errorFromApi)")
+                print("DEBUG: Failed to register user with error: \(errorFromApi.localizedDescription)")
                 return //We want to exit oout of the function if we encounter an error
             }
             
@@ -138,7 +138,7 @@ class SignUpController: UIViewController{
             Database.database().reference().child("users").child(uid).updateChildValues(values) { (error, ref) in
                 //Error Management if returned
                 if let errorFromApi = error {
-                    print("Failed to register user. Error message: \(errorFromApi)")
+                    print("DEBUG: Failed to register user. Error message: \(errorFromApi.localizedDescription)")
                     return //We want to exit oout of the function if we encounter an error
                 }
              
