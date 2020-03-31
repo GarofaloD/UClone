@@ -14,6 +14,7 @@ class HomeController: UIViewController {
     
     //MARK:- Properties
     private let mapView = MKMapView()
+    private let locationManager = CLLocationManager()
     
     //MARK:- Outlets
     
@@ -27,6 +28,7 @@ class HomeController: UIViewController {
         //view.backgroundColor = .red
 //        signOut()
 
+        enableLocationServices()
     }
     
     //MARK:- Custom functions
@@ -38,11 +40,8 @@ class HomeController: UIViewController {
         mapView.frame = view.frame
     }
     
-    
-    
-    
-    
-    
+
+        
     //MARK:- API Functions
     //Checks if uswr is logged in before presenting this controller
     func checkIfUserIsLoggedIn(){
@@ -67,6 +66,46 @@ class HomeController: UIViewController {
             print("DEBUG: Error signing out > \(error)")
         }
     }
+    
+    
+}
+
+    //MARK:- Location Services
+
+//Extension for Location services
+extension HomeController: CLLocationManagerDelegate {
+        
+    private func enableLocationServices() {
+         locationManager.delegate = self
+         
+         //Switches between status
+         switch CLLocationManager.authorizationStatus() {
+         case .notDetermined:  //It will always occur when opening the app for th firts time
+             //This method blongs to CLLocationManager().
+             locationManager.requestWhenInUseAuthorization()
+         case .restricted, .denied:
+             break
+         case .authorizedAlways:
+             print("DEBUG: Auth always")
+             //obtain an initial location fix and then fine tune
+             locationManager.startUpdatingLocation()
+             locationManager.desiredAccuracy = kCLLocationAccuracyBest
+         case .authorizedWhenInUse:
+             //This one will be required to be abe to develop the app without the reprompting
+             print("DEBUG: Auth when in use")
+             locationManager.requestAlwaysAuthorization()
+         @unknown default:
+             break
+         }
+     }
+    
+//    Will prompt the user to auth always in such way that this stays in case the app is turned off for a long time
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse {
+            locationManager.requestAlwaysAuthorization()
+        }
+    }
+    
     
     
 }
