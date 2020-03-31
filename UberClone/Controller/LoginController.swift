@@ -111,12 +111,14 @@ class LoginController: UIViewController {
                 print("DEBUG: Login Failed: \(errorFromApi.localizedDescription)")
                 return
             }
+            //If successfully logged in:
+//            print("DEBUG: User successfully logged in")
+//            self.dismiss(animated: true, completion: nil)
             
-            print("Successfully logged in")
-
-
-
-
+            //Get access to the instance of HomeController
+            guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else {return}
+            controller.configureUI()
+             self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -151,8 +153,10 @@ class LoginController: UIViewController {
     //To change the white color of the nav bar
     func configureNavigationBar(){
         
+        navigationController?.modalPresentationStyle = .fullScreen
         navigationController?.navigationBar.isHidden = true
         navigationController?.navigationBar.barStyle = .black
+        //navigationController?.navigationBar.barTintColor = .backgroundColor
     }
     
     

@@ -143,6 +143,9 @@ class SignUpController: UIViewController{
                 }
              
                 print("Registration Successful and data saved")
+                guard let controller = UIApplication.shared.keyWindow?.rootViewController as? HomeController else {return}
+                controller.configureUI()
+                 self.dismiss(animated: true, completion: nil)
                 
             }
         }
@@ -152,6 +155,7 @@ class SignUpController: UIViewController{
     func configureUI(){
         
         view.backgroundColor = UIColor.backgroundColor
+        self.modalPresentationStyle = .fullScreen
         
         view.addSubview(titleLabel)
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor)

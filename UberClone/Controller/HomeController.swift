@@ -8,10 +8,12 @@
 
 import UIKit
 import Firebase
+import MapKit
 
 class HomeController: UIViewController {
     
     //MARK:- Properties
+    private let mapView = MKMapView()
     
     //MARK:- Outlets
     
@@ -22,13 +24,23 @@ class HomeController: UIViewController {
         super.viewDidLoad()
        
         checkIfUserIsLoggedIn()
-        view.backgroundColor = .red
+        //view.backgroundColor = .red
+//        signOut()
 
     }
     
     //MARK:- Custom functions
     
     //MARK:- Helper Function
+    
+    func configureUI(){
+        view.addSubview(mapView)
+        mapView.frame = view.frame
+    }
+    
+    
+    
+    
     
     
     //MARK:- API Functions
@@ -42,8 +54,8 @@ class HomeController: UIViewController {
                 self.present(nav, animated: true, completion: nil)
             }
         } else {
-            print("DEBUG: ")
             print("DEBUG: User UID: \(Auth.auth().currentUser?.uid)")
+            configureUI()
         }
     }
     
