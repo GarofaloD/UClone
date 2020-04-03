@@ -81,13 +81,25 @@ extension UIView { //This one is used for all the UIViews
         }
     }
     
-    //centering of the element
+    //centering of the element - Horizaontal
     func centerX(inView view: UIView) {
         centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
-    
-    func centerY(inView view: UIView, constant: CGFloat = 0){
+    //centering of the element - Vertical
+    func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil, paddingLeft : CGFloat = 0, constant: CGFloat = 0){
         centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+        
+        //If left anchor is passed...
+        if let left = leftAnchor {
+            anchor(left: left, paddingLeft: paddingLeft)
+        }
+    }
+    
+    func setDimensions(height: CGFloat, width: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        //Constraints with view's weight and width
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+        widthAnchor.constraint(equalToConstant: width).isActive = true
     }
     
         
