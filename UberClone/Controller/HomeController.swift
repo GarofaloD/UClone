@@ -26,12 +26,12 @@ class HomeController: UIViewController {
     //MARK:- Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-       
-        checkIfUserIsLoggedIn()
-        //view.backgroundColor = .red
-//        signOut()
 
+        //From API Functions
+        checkIfUserIsLoggedIn()
+        //From CLLocationManagerDelegate extension
         enableLocationServices()
+        
     }
     
     //MARK:- Custom functions
@@ -45,6 +45,12 @@ class HomeController: UIViewController {
         inputActivationView.centerX(inView: view)
         inputActivationView.setDimensions(height: 50, width: view.frame.width - 64)
         inputActivationView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 32)
+        inputActivationView.alpha = 0
+        inputActivationView.delegate = self
+        
+        UIView.animate(withDuration: 2){
+            self.inputActivationView.alpha = 1
+        }
     }
     
     func configureMapView(){
@@ -55,10 +61,9 @@ class HomeController: UIViewController {
         //Calling for the user location
         mapView.showsUserLocation = true
         mapView.userTrackingMode = .follow
-        
     }
 
-        
+    
     //MARK:- API Functions
     //Checks if uswr is logged in before presenting this controller
     func checkIfUserIsLoggedIn(){
@@ -123,6 +128,13 @@ extension HomeController: CLLocationManagerDelegate {
         }
     }
     
+}
+
+
+//Delegation from LocationInputActivationView
+extension HomeController : LocationInputActivationViewDelegate {
     
-    
+    func presentLocationInputView() {
+        print("DEBUG: Handle present location input view...")
+    }
 }

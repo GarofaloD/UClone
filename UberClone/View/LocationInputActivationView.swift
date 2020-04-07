@@ -8,9 +8,16 @@
 
 import UIKit
 
+protocol LocationInputActivationViewDelegate : class  {
+    func presentLocationInputView()
+}
+
 class LocationInputActivationView: UIView {
     
     //MARK:- Properties
+    
+    //Property that will be acting as delegate on HomeController
+    weak var delegate: LocationInputActivationViewDelegate?
     
     //Indicator view (black dot) inside the where to field
     private let indicatorView : UIView = {
@@ -50,11 +57,24 @@ class LocationInputActivationView: UIView {
         addSubview(placeholderLabel)
         placeholderLabel.centerY(inView: self, leftAnchor: indicatorView.rightAnchor, paddingLeft: 20)
         
+        //Gesture recognizer for the Where to field
+        let tap = UITapGestureRecognizer(target: self, action: #selector(presentLocationInputView))
+        addGestureRecognizer(tap)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-  
+    
+    //MARK:- Helper Funtions
+    //Helper function for the tap gesture recofnizer
+    @objc func presentLocationInputView() {
+        //Actions are declared on HomeController
+        delegate?.presentLocationInputView()
+    }
+    
+    
 }
+
+
