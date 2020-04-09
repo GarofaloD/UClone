@@ -17,7 +17,7 @@ class HomeController: UIViewController {
     private let locationManager = CLLocationManager()
     
     private let inputActivationView = LocationInputActivationView()
-   
+    private let locationInputView = LocationInputView()
     
     //MARK:- Outlets
     
@@ -37,10 +37,11 @@ class HomeController: UIViewController {
     //MARK:- Custom functions
     
     //MARK:- Helper Function
-    
+    //Min home view
     func configureUI(){
         configureMapView()
         
+        //Where to? field
         view.addSubview(inputActivationView)
         inputActivationView.centerX(inView: view)
         inputActivationView.setDimensions(height: 50, width: view.frame.width - 64)
@@ -53,6 +54,7 @@ class HomeController: UIViewController {
         }
     }
     
+    //Map configuration
     func configureMapView(){
         //Home screen
         view.addSubview(mapView)
@@ -63,6 +65,22 @@ class HomeController: UIViewController {
         mapView.userTrackingMode = .follow
     }
 
+    //View where directions will be handled
+    func configureLocationInputView(){
+                
+        view.addSubview(locationInputView)
+        locationInputView.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 200)
+        locationInputView.alpha = 0
+        locationInputView.delegate = self
+        
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.locationInputView.alpha = 1
+        }) { _ in
+            print("DEBUG: Present table View")
+        }
+    }
+    
     
     //MARK:- API Functions
     //Checks if uswr is logged in before presenting this controller
@@ -130,11 +148,30 @@ extension HomeController: CLLocationManagerDelegate {
     
 }
 
-
-//Delegation from LocationInputActivationView
+    //MARK:- LocationInputActivationViewDelegate
+    //Delegation from LocationInputActivationView
 extension HomeController : LocationInputActivationViewDelegate {
     
     func presentLocationInputView() {
-        print("DEBUG: Handle present location input view...")
+        inputActivationView.alpha = 0
+        configureLocationInputView()
     }
+}
+
+    //MARK:- LocationInputViewDelegate
+
+extension HomeController: LocationInputViewDelegate {
+    func dismissLocationInputView() {
+        //Fade the container view out
+        UIView.animate(withDuration: 0.3, animations: {
+            self.locationInputView.alpha = 0
+        }) { _ in
+            //Fade the Where to? field in
+            UIView.animate(withDuration: 0.3) {
+                self.inputActivationView.alpha = 1
+            }
+        }
+    }
+    
+    
 }

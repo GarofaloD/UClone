@@ -50,8 +50,6 @@ extension UIView { //This one is used for all the UIViews
     }
     
     
-    
-    
     //We used nil because we might not need them at all
     func anchor(top: NSLayoutYAxisAnchor? = nil, left: NSLayoutXAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil, paddingTop : CGFloat = 0, paddingLeft: CGFloat = 0, paddingBottom: CGFloat = 0, paddingRight: CGFloat = 0, width: CGFloat? = nil, height: CGFloat? = nil){
         
@@ -102,7 +100,14 @@ extension UIView { //This one is used for all the UIViews
         widthAnchor.constraint(equalToConstant: width).isActive = true
     }
     
-        
+    func addShadow(){
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.60
+        layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        layer.masksToBounds = false
+    }
+    
+    
 }
 
 
